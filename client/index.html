@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portsmouth Port Educational Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" 
+          crossorigin=""/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <div class="dashboard">
+        <div class="main-card">
+            <h3 class="viz-card-title">Harbour Map</h3>
+            <div class="card-header">
+                <div class="fullscreen-btn" id="fullscreen-btn">
+                    <i class="fas fa-expand"></i>
+                </div>
+            </div>
+            <div class="card-content" id="map-container">
+                <div id="map"></div>
+            </div>
+        </div>
+        <div class="viz-cards">
+            <div class="viz-card">
+                <h3 class="viz-card-title">AQI Status</h3>
+                <div class="berth-status-container">
+                    <div class="berth-status-button mediocre">
+                        <span class="berth-name">Berth 5</span>
+                        <span class="berth-status">Mediocre</span>
+                    </div>
+                    <div class="berth-status-button mediocre">
+                        <span class="berth-name">Berth 4</span>
+                        <span class="berth-status">Mediocre</span>
+                    </div>
+                    <div class="berth-status-button good">
+                        <span class="berth-name">Berth 2</span>
+                        <span class="berth-status">Good</span>
+                    </div>
+                    <div class="berth-status-button excellent">
+                        <span class="berth-name">MEGCP</span>
+                        <span class="berth-status">Excellent</span>
+                    </div>
+                </div>
+            </div>
+            <div class="viz-card">
+                <h3 class="viz-card-title">CO2 Status (ppm)</h3>
+                <div class="berth-status-container">
+                    <div class="berth-status-button good">
+                        <span class="berth-name">Berth 5</span>
+                        <span class="berth-status">350</span>
+                    </div>
+                    <div class="berth-status-button good">
+                        <span class="berth-name">Berth 4</span>
+                        <span class="berth-status">389</span>
+                    </div>
+                    <div class="berth-status-button good">
+                        <span class="berth-name">Berth 2</span>
+                        <span class="berth-status">419</span>
+                    </div>
+                    <div class="berth-status-button excellent">
+                        <span class="berth-name">MEGCP</span>
+                        <span class="berth-status">259</span>
+                    </div>
+                </div>
+            </div>
+            <div class="viz-card">
+                <h3 class="viz-card-title">PM Smaller Than 2.5 Microns</h3>
+                <div class="berth-status-container">
+                    <div class="berth-status-button good">
+                        <span class="berth-name">Berth 5</span>
+                        <span class="berth-status">48</span>
+                    </div>
+                    <div class="berth-status-button bad">
+                        <span class="berth-name">Berth 4</span>
+                        <span class="berth-status">746</span>
+                    </div>
+                    <div class="berth-status-button mediocre">
+                        <span class="berth-name">Berth 2</span>
+                        <span class="berth-status">59</span>
+                    </div>
+                    <div class="berth-status-button excellent">
+                        <span class="berth-name">MEGCP</span>
+                        <span class="berth-status">17</span>
+                    </div>
+                </div>
+            </div>
+            <div class="viz-card">
+                <h3 class="viz-card-title">Port Activity</h3>
+                <div class="berth-status-container">
+                    <div class="berth-status-button good">
+                        <span class="berth-name">Arrivals</span>
+                        <span class="berth-status">5 Ships</span>
+                    </div>
+                    <div class="berth-status-button good">
+                        <span class="berth-name">Departures</span>
+                        <span class="berth-status">3 Ships</span>
+                    </div>
+                    <div class="berth-status-button good">
+                        <span class="berth-name">Scheduled</span>
+                        <span class="berth-status">8 Ships</span>
+                    </div>
+                    <div class="berth-status-button good">
+                        <span class="berth-name">At Berth</span>
+                        <span class="berth-status">4 Ships</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" 
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" 
+            crossorigin=""></script>
+    <script src="js/app.js"></script>
+    <script>
+        document.getElementById('fullscreen-btn').addEventListener('click', function() {
+            const mapContainer = document.getElementById('map-container');
+            
+            if (!document.fullscreenElement) {
+                if (mapContainer.requestFullscreen) {
+                    mapContainer.requestFullscreen();
+                } else if (mapContainer.mozRequestFullScreen) { /* firefox */
+                    mapContainer.mozRequestFullScreen();
+                } else if (mapContainer.webkitRequestFullscreen) { /* chrome, safari and opera */
+                    mapContainer.webkitRequestFullscreen();
+                } else if (mapContainer.msRequestFullscreen) { /* ie/edge */
+                    mapContainer.msRequestFullscreen();
+                }
+                this.querySelector('i').classList.remove('fa-expand');
+                this.querySelector('i').classList.add('fa-compress');
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+                this.querySelector('i').classList.remove('fa-compress');
+                this.querySelector('i').classList.add('fa-expand');
+            }
+        });
+
+        document.addEventListener('fullscreenchange', updateFullscreenButton);
+        document.addEventListener('webkitfullscreenchange', updateFullscreenButton);
+        document.addEventListener('mozfullscreenchange', updateFullscreenButton);
+        document.addEventListener('MSFullscreenChange', updateFullscreenButton);
+        
+        function updateFullscreenButton() {
+            const button = document.getElementById('fullscreen-btn');
+            const icon = button.querySelector('i');
+            
+            if (document.fullscreenElement) {
+                icon.classList.remove('fa-expand');
+                icon.classList.add('fa-compress');
+            } else {
+                icon.classList.remove('fa-compress');
+                icon.classList.add('fa-expand');
+            }
+        }
+    </script>
+</body>
+</html>

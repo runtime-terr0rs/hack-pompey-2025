@@ -1,0 +1,47 @@
+[
+    {
+        "name": "The Gog-yacht",
+        "type": "cargo",
+        "size": 8,
+        "rotation": 165,
+        "latitude": 50.8113134,
+        "longitude": -1.0945468,
+        "status": "Docked at Berth 2"
+    },
+    {
+        "name": "Solent Queen",
+        "type": "passenger",
+        "size": 6,
+        "rotation": 128,
+        "latitude": 50.8136430,
+        "longitude": -1.0928250,
+        "status": "Docked at Berth 5"
+    },
+    {
+        "name": "HMS Victory",
+        "type": "other",
+        "size": 10,
+        "rotation": 140,
+        "latitude": 50.8102,
+        "longitude": -1.1050,
+        "status": "Museum Ship"
+    },
+    {
+        "name": "Channel Freighter",
+        "type": "cargo",
+        "size": 9,
+        "rotation": 170,
+        "latitude": 50.8112080,
+        "longitude": -1.0968130,
+        "status": "Docked at Berth 4"
+    },
+    {
+        "name": "Isle of Wight Ferry",
+        "type": "passenger",
+        "size": 5,
+        "rotation": 20,
+        "latitude": 50.8095,
+        "longitude": -1.0985,
+        "status": "En Route"
+    }
+]
